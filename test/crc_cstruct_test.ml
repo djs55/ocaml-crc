@@ -11,7 +11,7 @@ let full_crc_tests = [
 
 let test_crc_all data expected_crc =
 	let cstruct = Cstruct.of_string data in
-	let cstruct_crc = Crc.crc32_cstruct cstruct 0 (String.length data) in
+	let cstruct_crc = Crc.crc32_cstruct cstruct in
 	assert_equal cstruct_crc expected_crc
 
 let suite_test_crc_all =
@@ -33,8 +33,8 @@ let part_crc_tests = [
 ]
 
 let test_crc_part data offset length expected_crc =
-	let cstruct = Cstruct.of_string data in
-	let cstruct_crc = Crc.crc32_cstruct cstruct offset length in
+	let cstruct = Cstruct.(sub (of_string data) offset length) in
+	let cstruct_crc = Crc.crc32_cstruct cstruct in
 	assert_equal cstruct_crc expected_crc
 
 let suite_test_crc_part =
